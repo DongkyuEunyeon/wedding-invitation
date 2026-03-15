@@ -6,15 +6,78 @@ import { useModal } from "../modal"
 import { AttendanceInfo } from "./attendance"
 
 export const Information1 = () => {
+  const { openModal, closeModal } = useModal()
+
   return (
     <>
       <h2 className="english">Information</h2>
       <div className="info-card">
         <div className="label">식사 안내</div>
         <div className="content">
-          식사시간: 11시 30분 ~ 14시 30분
+          식사시간: 11시 30분 ~ 14시 00분
           <br />
           장소: 지하 1층 연회장
+        </div>
+      </div>
+
+      <div className="info-card">
+        <div className="label">이야기</div>
+        <div className="content">
+          <Button
+            style={{ width: "100%" }}
+            onClick={() => {
+              openModal({
+                className: "donation-modal",
+                closeOnClickBackground: true,
+                header: <div className="title">신랑의 이야기</div>,
+                content: (
+                  <div style={{ padding: "1rem", textAlign: "center" }}>
+                    사랑해, 은연아.
+                  </div>
+                ),
+                footer: (
+                  <Button
+                    buttonStyle="style2"
+                    className="bg-light-grey-color text-dark-color"
+                    onClick={closeModal}
+                  >
+                    닫기
+                  </Button>
+                ),
+              })
+            }}
+          >
+            신랑의 이야기
+          </Button>
+
+          <div className="break" />
+
+          <Button
+            style={{ width: "100%" }}
+            onClick={() => {
+              openModal({
+                className: "donation-modal",
+                closeOnClickBackground: true,
+                header: <div className="title">신부의 이야기</div>,
+                content: (
+                  <div style={{ padding: "1rem", textAlign: "center" }}>
+                    사랑해, 동규오빠.
+                  </div>
+                ),
+                footer: (
+                  <Button
+                    buttonStyle="style2"
+                    className="bg-light-grey-color text-dark-color"
+                    onClick={closeModal}
+                  >
+                    닫기
+                  </Button>
+                ),
+              })
+            }}
+          >
+            신부의 이야기
+          </Button>
         </div>
       </div>
     </>

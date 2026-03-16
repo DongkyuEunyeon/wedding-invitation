@@ -107,6 +107,13 @@ const NaverMap = () => {
               case "ios":
               case "android":
                 window.open(`nmap://place?id=${NMAP_PLACE_ID}`, "_self")
+
+                const start = Date.now();
+                setTimeout(() => {
+                  if (Date.now() - start < 1500) {
+                    window.open(`https://map.naver.com/p/entry/place/${NMAP_PLACE_ID}`, "_blank");
+                  }
+                }, 1000);
                 break
               default:
                 window.open(
@@ -126,6 +133,13 @@ const NaverMap = () => {
               case "ios":
               case "android":
                 window.open(`kakaomap://place?id=${KMAP_PLACE_ID}`, "_self");
+
+                const start = Date.now();
+                setTimeout(() => {
+                  if (Date.now() - start < 1500) {
+                    window.open(`https://map.kakao.com/link/map/${KMAP_PLACE_ID}`, "_blank");
+                  }
+                }, 1000);
                 break;
               default:
                 window.open(

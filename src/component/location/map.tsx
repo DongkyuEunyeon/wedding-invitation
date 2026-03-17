@@ -18,22 +18,10 @@ export const Map = () => {
 
 const NaverMap = () => {
   const naver = useNaver()
-  const kakao = useKakao()
   const ref = useRef<HTMLDivElement>(null)
   const [locked, setLocked] = useState(true)
   const [showLockMessage, setShowLockMessage] = useState(false)
   const lockMessageTimeout = useRef<number | null>(null)
-
-  const checkDevice = () => {
-    const userAgent = window.navigator.userAgent
-    if (userAgent.match(/(iPhone|iPod|iPad)/)) {
-      return "ios"
-    } else if (userAgent.match(/(Android)/)) {
-      return "android"
-    } else {
-      return "other"
-    }
-  }
 
   useEffect(() => {
     if (naver) {
@@ -100,40 +88,28 @@ const NaverMap = () => {
         </button>
         <div className="map-inner" ref={ref}></div>
       </div>
+
       <div className="navigation">
+        {/* 네이버 지도 버튼: 항상 웹으로 이동 */}
         <button
           onClick={() => {
-            switch (checkDevice()) {
-              case "ios":
-              case "android":
-                window.open(`nmap://place?id=${NMAP_PLACE_ID}`, "_self")
-                break
-              default:
-                window.open(
-                  `https://map.naver.com/p/entry/place/${NMAP_PLACE_ID}`,
-                  "_blank",
-                )
-                break
-            }
+            window.open(
+              `https://map.naver.com/p/entry/place/${NMAP_PLACE_ID}`,
+              "_blank",
+            )
           }}
         >
           <img src={nmapIcon} alt="naver-map-icon" />
           네이버지도
         </button>
+
+        {/* 카카오맵 버튼: 항상 웹으로 이동 */}
         <button
           onClick={() => {
-            switch (checkDevice()) {
-              case "ios":
-              case "android":
-                window.open(`kakaomap://place?id=${KMAP_PLACE_ID}`, "_self");
-                break;
-              default:
-                window.open(
-                  `https://map.kakao.com/link/map/${KMAP_PLACE_ID}`,
-                  "_blank"
-                );
-                break;
-            }
+            window.open(
+              `https://map.kakao.com/link/map/${KMAP_PLACE_ID}`,
+              "_blank",
+            )
           }}
         >
           <img src={kmapIcon} alt="kakao-map-icon" />

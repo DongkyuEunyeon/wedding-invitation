@@ -12,16 +12,7 @@ export const Information1 = () => {
     <>
       <h2 className="english">Information</h2>
       <div className="info-card">
-        <div className="label">식사 안내</div>
-        <div className="content">
-          식사시간: 11시 30분 ~ 14시 00분
-          <br />
-          장소: 지하 1층 연회장
-        </div>
-      </div>
-
-      <div className="info-card">
-        <div className="label">이야기</div>
+        <div className="label">결혼 예배</div>
         <div className="content">
           <Button
             style={{ width: "100%" }}
@@ -29,10 +20,10 @@ export const Information1 = () => {
               openModal({
                 className: "donation-modal",
                 closeOnClickBackground: true,
-                header: <div className="title">신랑의 이야기</div>,
+                header: <div className="title">식순지</div>,
                 content: (
                   <div style={{ padding: "1rem", textAlign: "center" }}>
-                    사랑해, 은연아.
+                    식순지 사진
                   </div>
                 ),
                 footer: (
@@ -47,7 +38,7 @@ export const Information1 = () => {
               })
             }}
           >
-            신랑의 이야기
+            식순지
           </Button>
 
           <div className="break" />
@@ -58,10 +49,10 @@ export const Information1 = () => {
               openModal({
                 className: "donation-modal",
                 closeOnClickBackground: true,
-                header: <div className="title">신부의 이야기</div>,
+                header: <div className="title">기도 카드</div>,
                 content: (
                   <div style={{ padding: "1rem", textAlign: "center" }}>
-                    사랑해, 동규오빠.
+                    기도 카드 작성
                   </div>
                 ),
                 footer: (
@@ -76,8 +67,16 @@ export const Information1 = () => {
               })
             }}
           >
-            신부의 이야기
+            기도 카드
           </Button>
+        </div>
+      </div>
+      <div className="info-card">
+        <div className="label">식사 안내</div>
+        <div className="content">
+          식사시간: 11시 30분 ~ 14시 00분
+          <br />
+          장소: 지하 1층 연회장
         </div>
       </div>
     </>

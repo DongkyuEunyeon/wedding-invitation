@@ -4,6 +4,8 @@ import { Button } from "../button"
 import { LazyDiv } from "../lazyDiv"
 import { useModal } from "../modal"
 import { AttendanceInfo } from "./attendance"
+import { PROGRAM_LIST } from "../../images"
+import { PRAYER_CARD } from "../../images"
 
 export const Information1 = () => {
   const { openModal, closeModal } = useModal()
@@ -18,12 +20,20 @@ export const Information1 = () => {
             style={{ width: "100%" }}
             onClick={() => {
               openModal({
-                className: "donation-modal",
+                className: "donation-modal program-modal",
                 closeOnClickBackground: true,
                 header: <div className="title">식순지</div>,
                 content: (
-                  <div style={{ padding: "1rem", textAlign: "center" }}>
-                    식순지 사진
+                  <div style={{ padding: "0", textAlign: "center", overflow: "hidden" }}>
+                    <img
+                      src={PROGRAM_LIST}
+                      alt="식순지"
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        display: "block",
+                      }}
+                    />
                   </div>
                 ),
                 footer: (
@@ -47,12 +57,20 @@ export const Information1 = () => {
             style={{ width: "100%" }}
             onClick={() => {
               openModal({
-                className: "donation-modal",
+                className: "donation-modal program-modal",
                 closeOnClickBackground: true,
                 header: <div className="title">기도 카드</div>,
                 content: (
-                  <div style={{ padding: "1rem", textAlign: "center" }}>
-                    기도 카드 작성
+                  <div style={{ padding: "0", textAlign: "center", overflow: "hidden" }}>
+                    <img
+                      src={PRAYER_CARD}
+                      alt="기도 카드"
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        display: "block",
+                      }}
+                    />
                   </div>
                 ),
                 footer: (

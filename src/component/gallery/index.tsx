@@ -7,7 +7,17 @@ import { GALLERY_IMAGES } from "../../images"
 
 const CAROUSEL_ITEMS = GALLERY_IMAGES.map((item, idx) => (
   <div className="carousel-item" key={idx}>
-    <img src={item} draggable={false} alt={`${idx}`} />
+    <img
+      src={item}
+      draggable={false}
+      alt={`${idx}`}
+      onContextMenu={(e) => e.preventDefault()}
+      style={{
+        WebkitTouchCallout: 'none',
+        userSelect: 'none',
+        WebkitUserSelect: 'none'
+      }}
+    />
   </div>
 ))
 
@@ -283,6 +293,7 @@ export const Gallery = () => {
         <div
           className="carousel"
           ref={carouselRef}
+          onContextMenu={(e) => e.preventDefault()}
           onMouseDown={(e) =>
             click(
               statusRef.current,
@@ -372,6 +383,12 @@ export const Gallery = () => {
                       src={image}
                       alt={`${idx}`}
                       draggable={false}
+                      onContextMenu={(e) => e.preventDefault()}
+                      style={{
+                        WebkitTouchCallout: 'none',
+                        userSelect: 'none',
+                        WebkitUserSelect: 'none'
+                      }}
                       onClick={() => {
                         if (statusRef.current === "stationary") {
                           if (idx !== slideRef.current) {

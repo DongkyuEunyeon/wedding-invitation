@@ -1,4 +1,6 @@
 import coverImage from "./cover.png"
+import programList from "./program_list.png"
+import prayerCard from "./prayer_card.png"
 import image1 from "./image1.png"
 import image2 from "./image2.png"
 import image3 from "./image3.png"
@@ -13,6 +15,8 @@ import image11 from "./image11.png"
 import image12 from "./image12.png"
 
 export const COVER_IMAGE = coverImage
+export const PROGRAM_LIST = programList
+export const PRAYER_CARD = prayerCard
 
 export const GALLERY_IMAGES = [
   image1,

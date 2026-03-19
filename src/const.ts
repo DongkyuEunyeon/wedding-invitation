@@ -24,7 +24,7 @@ export const SHARE_ADDRESS = LOCATION_KAKAOSHARE
 export const SHARE_ADDRESS_TITLE = LOCATION_KAKAOSHARE
 
 // 네이버 지도 및 카카오 네비게이션에 사용할 좌표. [경도, 위도] 형식.
-export const WEDDING_HALL_POSITION = [126.9706611, 37.5468731]
+export const WEDDING_HALL_POSITION = [126.97824994606759, 37.566550999999464]
 
 // 네이버 지도의 웨딩홀 장소 ID
 // 네이버 지도 웹페이지에서 웨딩홀 검색 후 URL에서 확인 가능.
@@ -58,7 +58,7 @@ export const BRIDE_INFO = [
     relation: "신부 어머니",
     name: BRIDE_MOTHER,
     phone: "010-3265-4243",
-    account: "KB국민 00000000000000",
+    account: "KB국민 071210664501",
   },
 ]
 

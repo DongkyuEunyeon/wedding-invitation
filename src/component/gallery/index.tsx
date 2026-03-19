@@ -5,8 +5,9 @@ import { Button } from "../button"
 import { useModal } from "../modal"
 import { GALLERY_IMAGES } from "../../images"
 
+// 1. 캐러셀 아이템 정의 부분 수정 (덮개 추가)
 const CAROUSEL_ITEMS = GALLERY_IMAGES.map((item, idx) => (
-  <div className="carousel-item" key={idx}>
+  <div className="carousel-item" key={idx} style={{ position: "relative" }}>
     <img
       src={item}
       draggable={false}
@@ -18,6 +19,16 @@ const CAROUSEL_ITEMS = GALLERY_IMAGES.map((item, idx) => (
         WebkitUserSelect: 'none'
       }}
     />
+    {/* 투명 덮개 추가 (모바일 저장 방지) */}
+    <div style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundColor: "transparent",
+      WebkitTouchCallout: 'none'
+    }} />
   </div>
 ))
 
@@ -90,11 +101,6 @@ export const Gallery = () => {
   const setClickMove = (clickMove: ClickMove) => {
     clickMoveRef.current = clickMove
   }
-
-  // For debugging
-  // useEffect(() => {
-  //   console.log(status)
-  // }, [status])
 
   const click = (
     status: Status,
@@ -354,7 +360,7 @@ export const Gallery = () => {
           </div>
         </div>
         <div className="carousel-indicator">
-          {CAROUSEL_ITEMS.map((_, idx) => (
+          {GALLERY_IMAGES.map((_, idx) => (
             <button
               key={idx}
               className={`indicator${idx === slide ? " active" : ""}`}
@@ -378,26 +384,46 @@ export const Gallery = () => {
               <>
                 <div className="photo-list">
                   {GALLERY_IMAGES.map((image, idx) => (
-                    <img
-                      key={idx}
-                      src={image}
-                      alt={`${idx}`}
-                      draggable={false}
-                      onContextMenu={(e) => e.preventDefault()}
-                      style={{
-                        WebkitTouchCallout: 'none',
-                        userSelect: 'none',
-                        WebkitUserSelect: 'none'
-                      }}
-                      onClick={() => {
-                        if (statusRef.current === "stationary") {
-                          if (idx !== slideRef.current) {
-                            move(slideRef.current, idx)
+                    // 2. 전체보기 모달 내 이미지 감싸는 div 추가 (덮개 적용)
+                    <div key={idx} className="photo-wrapper" style={{ position: "relative" }}>
+                      <img
+                        src={image}
+                        alt={`${idx}`}
+                        draggable={false}
+                        onContextMenu={(e) => e.preventDefault()}
+                        style={{
+                          WebkitTouchCallout: 'none',
+                          userSelect: 'none',
+                          WebkitUserSelect: 'none',
+                          cursor: 'pointer', // 클릭 힌트 유지
+                          display: "block",
+                          width: "100%"
+                        }}
+                        // 기존 onClick 이벤트를 투명 덮개로 이전했습니다.
+                      />
+                      {/* 투명 덮개 추가 및 onClick 이벤트 처리 */}
+                      <div 
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          width: "100%",
+                          height: "100%",
+                          backgroundColor: "transparent",
+                          WebkitTouchCallout: 'none',
+                          cursor: 'pointer' // 클릭 영역임을 명시
+                        }}
+                        // 사용자는 투명막을 누르지만, 브라우저는 이 div의 onClick을 실행합니다.
+                        onClick={() => {
+                          if (statusRef.current === "stationary") {
+                            if (idx !== slideRef.current) {
+                              move(slideRef.current, idx)
+                            }
+                            closeModal()
                           }
-                          closeModal()
-                        }
-                      }}
-                    />
+                        }}
+                      />
+                    </div>
                   ))}
                 </div>
                 <div className="break" />

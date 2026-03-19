@@ -31,19 +31,37 @@ export const Cover = () => {
       <div className="wedding-day-of-week">
         {DAY_OF_WEEK[WEDDING_DATE.day()]}
       </div>
-      <div className="image-wrapper">
+
+      {/* 이미지 덮개 적용 구간 */}
+      <div className="image-wrapper" style={{ position: "relative" }}>
         <img
           src={COVER_IMAGE}
           alt="sample"
           onContextMenu={(e) => e.preventDefault()}
           draggable={false}
           style={{
+            width: "100%",
+            height: "auto",
+            display: "block",
             WebkitTouchCallout: 'none',
             userSelect: 'none',
             WebkitUserSelect: 'none'
           }}
         />
+        {/* 투명 덮개: 이미지 크기만큼 위를 덮어서 직접 터치 방지 */}
+        <div 
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "transparent",
+            WebkitTouchCallout: 'none'
+          }} 
+        />
       </div>
+
       <div className="subtitle">Save the date for the wedding of</div>
       <div className="names">
         {GROOM_FULLNAME}

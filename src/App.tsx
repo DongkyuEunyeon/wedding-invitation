@@ -26,22 +26,41 @@ function App() {
       <nav className="top-nav" style={{
         position: 'fixed',
         top: 0,
+        left: '50%',             // 중앙 정렬 유지
+        transform: 'translateX(-50%)',
         width: '100%',
-        maxWidth: '450px', // card-view 너비와 맞추는 게 좋습니다
+        maxWidth: '450px',
         height: '40px',
         zIndex: 10000,
-        display: 'flex',
-        justifyContent: 'space-around',
+        display: 'flex',         // Flexbox 사용
+        justifyContent: 'center', // 내부 요소들을 중앙으로
         alignItems: 'center',
         backgroundColor: 'rgba(255, 255, 255, 0.8)',
-        backdropFilter: 'blur(4px)', // 배경 흐리게 효과
+        backdropFilter: 'blur(4px)',
         fontSize: '0.9rem',
         color: '#666',
-        fontFamily: 'sjy, cursive'
+        fontFamily: 'sjy, cursive',
+        borderBottom: '1px solid rgba(0,0,0,0.05)'
       }}>
-        <span onClick={() => scrollToId('gallery')} style={{ cursor: 'pointer' }}>갤러리</span>
-        <span onClick={() => scrollToId('location')} style={{ cursor: 'pointer' }}>오시는길</span>
-        <span onClick={() => scrollToId('information')} style={{ cursor: 'pointer' }}>마음전하기</span>
+        {/* 각 버튼에 flex: 1과 textAlign: center를 주어 동일한 비율로 나눕니다 */}
+        <span
+          onClick={() => scrollToId('location')}
+          style={{ cursor: 'pointer', flex: 1, textAlign: 'center', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        >
+          오시는길
+        </span>
+        <span
+          onClick={() => scrollToId('gallery')}
+          style={{ cursor: 'pointer', flex: 1, textAlign: 'center', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        >
+          동규♥은연
+        </span>
+        <span
+          onClick={() => scrollToId('information')}
+          style={{ cursor: 'pointer', flex: 1, textAlign: 'center', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        >
+          마음전하기
+        </span>
       </nav>
 
       <div className="card-view" style={{ paddingTop: '50px' }}> {/* 상단바 높이만큼 여백 추가 */}
@@ -49,15 +68,15 @@ function App() {
         <LazyDiv className="card-group" id="cover">
           <Cover />
           <Invitation />
-        </LazyDiv>
-
-        <LazyDiv className="card-group" id="gallery">
           <Calendar />
-          <Gallery />
         </LazyDiv>
 
         <LazyDiv className="card-group" id="location">
           <Location />
+        </LazyDiv>
+
+        <LazyDiv className="card-group" id="gallery">
+          <Gallery />
         </LazyDiv>
 
         <LazyDiv className="card-group" id="information">

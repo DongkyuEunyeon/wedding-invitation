@@ -46,19 +46,19 @@ export const BRIDE_INFO = [
     relation: "신부",
     name: BRIDE_FULLNAME,
     phone: "010-9340-8122",
-    account: "우리은행 0000000000000",
+    account: "토스뱅크 100125228278",
   },
   {
     relation: "신부 아버지",
     name: BRIDE_FATHER,
-    phone: "010-0000-0000",
-    account: "하나은행 00000000000",
+    phone: "010-3630-8122",
+    account: "KB국민 824210480768",
   },
   {
     relation: "신부 어머니",
     name: BRIDE_MOTHER,
-    phone: "010-0000-0000",
-    account: "하나은행 00000000000000",
+    phone: "010-3265-4243",
+    account: "KB국민 00000000000000",
   },
 ]
 
@@ -72,18 +72,18 @@ export const GROOM_INFO = [
     relation: "신랑",
     name: GROOM_FULLNAME,
     phone: "010-4993-1024",
-    account: "하나은행 00000000000000",
+    account: "토스뱅크 100021226681",
   },
   {
     relation: "신랑 아버지",
     name: GROOM_FATHER,
     phone: "010-9320-9137",
-    account: "신한은행 000000000000",
+    account: "NH농협 81512756176045",
   },
   {
     relation: "신랑 어머니",
     name: GROOM_MOTHER,
     phone: "010-3868-9137",
-    account: "국민은행 000000000000",
+    account: "NH농협 3120045941041",
   },
 ]

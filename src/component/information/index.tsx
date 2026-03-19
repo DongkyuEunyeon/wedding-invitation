@@ -7,88 +7,14 @@ import { AttendanceInfo } from "./attendance"
 import { PROGRAM_LIST } from "../../images"
 import { PRAYER_CARD } from "../../images"
 
-export const Information1 = () => {
+export const Information = () => {
   const { openModal, closeModal } = useModal()
 
   return (
-    <>
+    <LazyDiv className="card information">
       <h2 className="english">Information</h2>
-      <div className="info-card">
-        <div className="label">결혼 예배</div>
-        <div className="content">
-          <Button
-            style={{ width: "100%" }}
-            onClick={() => {
-              openModal({
-                className: "donation-modal program-modal",
-                closeOnClickBackground: true,
-                header: <div className="title">식순지</div>,
-                content: (
-                  <div style={{ padding: "0", textAlign: "center", overflow: "hidden" }}>
-                    <img
-                      src={PROGRAM_LIST}
-                      alt="식순지"
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        display: "block",
-                      }}
-                    />
-                  </div>
-                ),
-                footer: (
-                  <Button
-                    buttonStyle="style2"
-                    className="bg-light-grey-color text-dark-color"
-                    onClick={closeModal}
-                  >
-                    닫기
-                  </Button>
-                ),
-              })
-            }}
-          >
-            식순지
-          </Button>
 
-          <div className="break" />
-
-          <Button
-            style={{ width: "100%" }}
-            onClick={() => {
-              openModal({
-                className: "donation-modal program-modal",
-                closeOnClickBackground: true,
-                header: <div className="title">기도 카드</div>,
-                content: (
-                  <div style={{ padding: "0", textAlign: "center", overflow: "hidden" }}>
-                    <img
-                      src={PRAYER_CARD}
-                      alt="기도 카드"
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        display: "block",
-                      }}
-                    />
-                  </div>
-                ),
-                footer: (
-                  <Button
-                    buttonStyle="style2"
-                    className="bg-light-grey-color text-dark-color"
-                    onClick={closeModal}
-                  >
-                    닫기
-                  </Button>
-                ),
-              })
-            }}
-          >
-            기도 카드
-          </Button>
-        </div>
-      </div>
+      {/* 1. 식사 안내 섹션 (최상단으로 이동) */}
       <div className="info-card">
         <div className="label">식사 안내</div>
         <div className="content">
@@ -97,26 +23,17 @@ export const Information1 = () => {
           장소: 지하 1층 연회장
         </div>
       </div>
-    </>
-  )
-}
 
-export const Information2 = () => {
-  const { openModal, closeModal } = useModal()
+      <br />
 
-  return (
-    <>
-      <div className="info-card">
+      {/* 2. 마음 전하기 섹션 */}
+      <div className="info-card" style={{ marginTop: '0.5rem' }}>
         <div className="label">마음 전하기</div>
         <div className="content">
-          참석이 어려워 직접 축하해주지 못하는
-          <br />
-          분들을 위해 계좌번호를 기재하였습니다.
-          <br />
-          넓은 마음으로 양해 부탁드립니다.
+          참석이 어려워 직접 축하해주지 못하는 분들을 위해 계좌번호를 기재하였습니다.
         </div>
 
-        <div className="break" />
+        <div className="break" style={{ margin: '8px 0' }} />
 
         <Button
           style={{ width: "100%" }}
@@ -127,50 +44,29 @@ export const Information2 = () => {
               header: <div className="title">신랑측 계좌번호</div>,
               content: (
                 <>
-                  {GROOM_INFO.filter(({ account }) => !!account).map(
-                    ({ relation, name, account }) => (
-                      <div className="account-info" key={relation}>
-                        <div>
-                          <div className="name">
-                            <span className="relation">{relation}</span> {name}
-                          </div>
-                          <div>{account}</div>
-                        </div>
-                        <Button
-                          className="copy-button"
-                          onClick={async () => {
-                            if (account) {
-                              try {
-                                navigator.clipboard.writeText(account)
-                                alert(account + "\n복사되었습니다.")
-                              } catch {
-                                alert("복사에 실패했습니다.")
-                              }
-                            }
-                          }}
-                        >
-                          복사하기
-                        </Button>
+                  {GROOM_INFO.filter(({ account }) => !!account).map(({ relation, name, account }) => (
+                    <div className="account-info" key={relation}>
+                      <div>
+                        <div className="name"><span className="relation">{relation}</span> {name}</div>
+                        <div>{account}</div>
                       </div>
-                    ),
-                  )}
+                      <Button className="copy-button" onClick={() => {
+                        navigator.clipboard.writeText(account || "");
+                        alert("복사되었습니다.");
+                      }}>복사하기</Button>
+                    </div>
+                  ))}
                 </>
               ),
-              footer: (
-                <Button
-                  buttonStyle="style2"
-                  className="bg-light-grey-color text-dark-color"
-                  onClick={closeModal}
-                >
-                  닫기
-                </Button>
-              ),
+              footer: <Button buttonStyle="style2" onClick={closeModal}>닫기</Button>,
             })
           }}
         >
           신랑측 계좌번호 보기
         </Button>
-        <div className="break" />
+
+        <div className="break" style={{ margin: '4px 0' }} />
+
         <Button
           style={{ width: "100%" }}
           onClick={() => {
@@ -180,73 +76,76 @@ export const Information2 = () => {
               header: <div className="title">신부측 계좌번호</div>,
               content: (
                 <>
-                  {BRIDE_INFO.filter(({ account }) => !!account).map(
-                    ({ relation, name, account }) => (
-                      <div className="account-info" key={relation}>
-                        <div>
-                          <div className="name">
-                            <span className="relation">{relation}</span> {name}
-                          </div>
-                          <div>{account}</div>
-                        </div>
-                        <Button
-                          className="copy-button"
-                          onClick={async () => {
-                            if (account) {
-                              try {
-                                navigator.clipboard.writeText(account)
-                                alert(account + "\n복사되었습니다.")
-                              } catch {
-                                alert("복사에 실패했습니다.")
-                              }
-                            }
-                          }}
-                        >
-                          복사하기
-                        </Button>
+                  {BRIDE_INFO.filter(({ account }) => !!account).map(({ relation, name, account }) => (
+                    <div className="account-info" key={relation}>
+                      <div>
+                        <div className="name"><span className="relation">{relation}</span> {name}</div>
+                        <div>{account}</div>
                       </div>
-                    ),
-                  )}
+                      <Button className="copy-button" onClick={() => {
+                        navigator.clipboard.writeText(account || "");
+                        alert("복사되었습니다.");
+                      }}>복사하기</Button>
+                    </div>
+                  ))}
                 </>
               ),
-              footer: (
-                <Button
-                  buttonStyle="style2"
-                  className="bg-light-grey-color text-dark-color"
-                  onClick={closeModal}
-                >
-                  닫기
-                </Button>
-              ),
+              footer: <Button buttonStyle="style2" onClick={closeModal}>닫기</Button>,
             })
           }}
         >
           신부측 계좌번호 보기
         </Button>
       </div>
-    </>
-  )
-}
 
-export const Information = () => {
-  if (STATIC_ONLY) {
-    return (
-      <>
-        <LazyDiv className="card information">
-          <Information1 />
-        </LazyDiv>
-        <LazyDiv className="card information">
-          <Information2 />
-        </LazyDiv>
-      </>
-    )
-  }
+      <br />
 
-  return (
-    <LazyDiv className="card information">
-      <Information1 />
-      <Information2 />
-      <AttendanceInfo />
+      {/* 3. 결혼 예배 섹션 (마지막으로 이동) */}
+      <div className="info-card" style={{ marginTop: '0.5rem' }}>
+        <div className="label">결혼 예배</div>
+        <div className="content">
+          <Button
+            style={{ width: "100%" }}
+            onClick={() => {
+              openModal({
+                className: "donation-modal program-modal",
+                closeOnClickBackground: true,
+                content: (
+                  <div style={{ padding: "0", textAlign: "center", overflow: "hidden" }}>
+                    <img src={PROGRAM_LIST} alt="식순지" style={{ width: "100%", height: "auto", display: "block" }} />
+                  </div>
+                ),
+                footer: <Button buttonStyle="style2" className="bg-light-grey-color text-dark-color" onClick={closeModal}>닫기</Button>,
+              })
+            }}
+          >
+            식순지
+          </Button>
+
+          <div className="break" style={{ margin: '4px 0' }} />
+
+          <Button
+            style={{ width: "100%" }}
+            onClick={() => {
+              openModal({
+                className: "donation-modal program-modal",
+                closeOnClickBackground: true,
+                content: (
+                  <div style={{ padding: "0", textAlign: "center", overflow: "hidden" }}>
+                    <img src={PRAYER_CARD} alt="기도 카드" style={{ width: "100%", height: "auto", display: "block" }} />
+                  </div>
+                ),
+                footer: <Button buttonStyle="style2" className="bg-light-grey-color text-dark-color" onClick={closeModal}>닫기</Button>,
+              })
+            }}
+          >
+            기도 카드
+          </Button>
+        </div>
+      </div>
+
+      {/* 4. 참석 정보 (옵션) */}
+      {!STATIC_ONLY && <AttendanceInfo />}
     </LazyDiv>
   )
 }

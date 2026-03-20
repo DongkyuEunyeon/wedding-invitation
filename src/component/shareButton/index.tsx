@@ -25,9 +25,7 @@ export const ShareButton = () => {
           }
 
           kakao.Share.sendDefault({
-            objectType: "location",
-            address: SHARE_ADDRESS,
-            addressTitle: SHARE_ADDRESS_TITLE,
+            objectType: "feed",
             content: {
               title: `${GROOM_FULLNAME} ❤️ ${BRIDE_FULLNAME}의 결혼식에 초대합니다.`,
               description:

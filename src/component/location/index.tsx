@@ -56,13 +56,13 @@ export const Location = () => {
           <div />
           <div className="content">
             <b>
+              ※ 교회 지하주차장이 협소하오니
+              <br/>
+              &nbsp;&nbsp;&nbsp;가급적 대중교통 이용을 부탁드립니다.
+              <br/>
               ※ 숙명여대 주차장 이용 시 교회까지
               <br/>
               &nbsp;&nbsp;&nbsp;'도보 15분이 소요' 됩니다.
-              <br/>
-              ※ 교회 지하주차장은 협소하여
-              <br/>
-              &nbsp;&nbsp;&nbsp;이른 만차가 예상됩니다.
             </b>
           </div>
         </div>

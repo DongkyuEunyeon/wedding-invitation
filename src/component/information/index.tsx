@@ -1,5 +1,4 @@
 import { BRIDE_INFO, GROOM_INFO } from "../../const"
-import { STATIC_ONLY } from "../../env"
 import { Button } from "../button"
 import { LazyDiv } from "../lazyDiv"
 import { useModal } from "../modal"
@@ -143,9 +142,6 @@ export const Information = () => {
           </Button>
         </div>
       </div>
-
-      {/* 4. 참석 정보 (옵션) */}
-      {!STATIC_ONLY && <AttendanceInfo />}
     </LazyDiv>
   )
 }

@@ -22,8 +22,8 @@ export const Location = () => {
           </div>
           <div className="heading">대중교통</div>
           <div />
-          <div className="content">
-            * 지하철
+          <div className="content" style={{ lineHeight: '1.6' }}>
+            <b>* 지하철</b>
             <br />
             지하철 1호선 <b>남영역 1번 출구</b> 혹은
             <br />
@@ -32,10 +32,9 @@ export const Location = () => {
             → 갈월동 지하차도 지나 오른쪽 방면
             <br />
             <br />
-            * 버스
+            <b>* 버스</b>
             <br />
             숙대입구/갈월동 하차
-            
           </div>
         </div>
         <div className="location-info">
@@ -44,7 +43,7 @@ export const Location = () => {
           </div>
           <div className="heading">자가용</div>
           <div />
-          <div className="content">
+          <div className="content" style={{ lineHeight: '1.6' }}>
             <b>삼일교회 B관 지하주차장</b> 혹은
             <br />
             (청파로 304)
@@ -54,14 +53,14 @@ export const Location = () => {
             (청파로 47길 99)
           </div>
           <div />
-          <div className="content">
+          <div className="content" style={{ lineHeight: '1.6' }}>
             <b>
               ※ 교회 지하주차장이 협소하오니
-              <br/>
+              <br />
               &nbsp;&nbsp;&nbsp;가급적 대중교통 이용을 부탁드립니다.
-              <br/>
+              <br />
               ※ 숙명여대 주차장 이용 시 교회까지
-              <br/>
+              <br />
               &nbsp;&nbsp;&nbsp;'도보 15분이 소요' 됩니다.
             </b>
           </div>

@@ -25,16 +25,16 @@ export const Invitation = () => {
 
       <div className="break" />
 
-      <div className="content">우리가 사랑함은 그가 먼저 우리를 사랑하셨음이라</div>
+      <div className="content">우리가 사랑함은</div>
+      <div className="content">그가 먼저 우리를 사랑하셨음이라</div>
       <div className="content">요한일서 4장 19절</div>
 
       <div className="break" />
       <div className="break" />
 
-      <div className="content">이 말씀 안에서</div>
-      <div className="content">사랑으로 서로를 덮는 작은 교회로</div>
-      <div className="content">한 가정을 세워가려 합니다.</div>
-      <div className="content">귀한 걸음으로 함께 축복해 주세요.</div>
+      <div className="content">하나님의 먼저 된 사랑을 본받아</div>
+      <div className="content">'가정'이라는 작은 교회를 세우게 되었습니다.</div>
+      <div className="content">저희의 첫걸음을 귀한 축복으로 빛내주세요.</div>
       
       <div className="break" />
       <div className="break" />
@@ -42,14 +42,14 @@ export const Invitation = () => {
       <div className="name">
         {GROOM_FATHER} · {GROOM_MOTHER}
         <span className="relation">
-          의 <span className="relation-name">{GROOM_TITLE}</span>
+          의 <span className="relation-name" style={{ display: 'inline-block', width: '76px', textAlign: 'center' }}>{GROOM_TITLE}</span>
         </span>{" "}
         {GROOM_FULLNAME}
       </div>
       <div className="name">
         {BRIDE_FATHER} · {BRIDE_MOTHER}
         <span className="relation">
-          의 <span className="relation-name">{BRIDE_TITLE}</span>
+          의 <span className="relation-name" style={{ display: 'inline-block', width: '76px', textAlign: 'center' }}>{BRIDE_TITLE}</span>
         </span>{" "}
         {BRIDE_FULLNAME}
       </div>

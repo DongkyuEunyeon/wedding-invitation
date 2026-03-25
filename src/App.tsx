@@ -81,7 +81,6 @@ function App() {
 
         <LazyDiv className="card-group" id="information">
           <Information />
-          {!STATIC_ONLY && <GuestBook />}
         </LazyDiv>
 
         <ShareButton />

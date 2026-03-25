@@ -25,9 +25,8 @@ export const Invitation = () => {
 
       <div className="break" />
 
-      <div className="content">무엇보다도 서로 깊이 사랑하십시오.</div>
-      <div className="content">사랑은 허다한 죄를 덮습니다.</div>
-      <div className="content">베드로전서 4:8</div>
+      <div className="content">우리가 사랑함은 그가 먼저 우리를 사랑하셨음이라</div>
+      <div className="content">요한일서 4장 19절</div>
 
       <div className="break" />
       <div className="break" />

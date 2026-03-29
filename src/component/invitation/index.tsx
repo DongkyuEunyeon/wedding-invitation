@@ -33,7 +33,7 @@ export const Invitation = () => {
       <div className="break" />
 
       <div className="content">하나님의 먼저 된 사랑을 본받아</div>
-      <div className="content">'가정'이라는 작은 교회를 세우게 되었습니다.</div>
+      <div className="content">가정이라는 작은 교회를 세우게 되었습니다.</div>
       <div className="content">저희의 첫걸음을 귀한 축복으로 빛내주세요.</div>
       
       <div className="break" />

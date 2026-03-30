@@ -23,7 +23,7 @@ function App() {
       <nav className="top-nav" style={{
         position: 'fixed',
         top: 0,
-        left: 6,
+        left: 0,
         right: 0,
         margin: '0 auto',
         width: '100%',

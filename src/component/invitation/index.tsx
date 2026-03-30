@@ -42,14 +42,14 @@ export const Invitation = () => {
       <div className="name">
         {GROOM_FATHER} · {GROOM_MOTHER}
         <span className="relation">
-          의 <span className="relation-name" style={{ display: 'inline-block', width: '76px', textAlign: 'center' }}>{GROOM_TITLE}</span>
+          의 <span className="relation-name" style={{ display: 'inline-block', width: '81px', textAlign: 'center' }}>{GROOM_TITLE}</span>
         </span>{" "}
         {GROOM_FULLNAME}
       </div>
       <div className="name">
         {BRIDE_FATHER} · {BRIDE_MOTHER}
         <span className="relation">
-          의 <span className="relation-name" style={{ display: 'inline-block', width: '76px', textAlign: 'center' }}>{BRIDE_TITLE}</span>
+          의 <span className="relation-name" style={{ display: 'inline-block', width: '81px', textAlign: 'center' }}>{BRIDE_TITLE}</span>
         </span>{" "}
         {BRIDE_FULLNAME}
       </div>

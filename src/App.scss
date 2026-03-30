@@ -6,7 +6,6 @@
 @use "./component/gallery";
 @use "./component/location";
 @use "./component/information";
-@use "./component/guestbook";
 @use "./component/modal";
 @use "./component/shareButton";
 
@@ -25,6 +24,7 @@
 
   font-family: "MapoGoldenPier";
   font-size: 20px;
+
   @media (max-width: 500px) {
     font-size: 4vw;
   }
@@ -53,9 +53,11 @@ $colors: (
   .text-#{$name} {
     color: $color !important;
   }
+
   .bg-#{$name} {
     background-color: $color !important;
   }
+
   .border-#{$name} {
     border-color: $color !important;
   }
@@ -67,6 +69,7 @@ $colors: (
     z-index: 3;
     transform: translateY(2rem);
   }
+
   to {
     opacity: 1;
     z-index: 3;
@@ -87,6 +90,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   height: 100vh;
+
   &.modal-open {
     overflow-y: hidden;
   }
@@ -111,91 +115,75 @@ body {
   min-width: 100vw;
 
   .card-view {
-    width: 980px;
+    width: 100%; // 기본은 100%로 두되
+    max-width: 450px; // ★ PC에서 최대 너비를 450px로 고정!
+    margin: 0 auto; // 중앙 정렬
     text-align: center;
 
     @media (max-width: 980px) {
-      width: 500px;
+      width: 500px; // 태블릿 사이즈 (원하시면 유지)
     }
 
     @media (max-width: 500px) {
-      width: 100vw;
+      width: 100vw; // 모바일은 화면 꽉 차게
+    }
+  }
+
+  .card-group {
+    position: relative;
+
+    // ★ 이 부분이 웹(980px 이상)에서 가로로 찢어지게 만들고 있었습니다.
+    @media (width > 980px) {
+      display: flex;
+      flex-direction: column; // ★ row에서 column으로 수정!
+      box-shadow: none; // 웹에서도 모바일처럼 박스 그림자 통일 (선택)
+      margin: 0;
+      background-color: transparent; // 배경색 겹침 방지
+      opacity: 1; // 웹에선 애니메이션 없이 바로 보여도 무방
     }
 
-    .card-group {
-      position: relative;
-      @media (width > 980px) {
-        display: flex;
-        flex-direction: row;
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-        margin: 10px;
-        background-color: var(--light-color);
-
-        opacity: 0;
-        &.lazy-active {
-          animation-name: lazy-fade-in;
-          animation-duration: 3s;
-          opacity: 1;
-        }
-
-        @media print {
-          opacity: 1;
-          animation-name: inherit !important;
-          animation-duration: inherit !important;
-        }
-      }
-
-      .card {
-        background-color: var(--light-color);
-        padding: 1rem;
-        border: 1px solid var(--light-grey-color);
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        position: relative;
-
-        @media (max-width: 980px) {
-          box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
-          margin: 0.5rem;
-          width: inherit;
-
-          opacity: 0;
-          &.lazy-active {
-            animation-name: lazy-fade-in;
-            animation-duration: 3s;
-            opacity: 1;
-          }
-
-          @media print {
-            opacity: 1;
-            animation-name: inherit !important;
-            animation-duration: inherit !important;
-          }
-        }
-      }
-    }
-
-    .footer {
-      position: relative;
+    .card {
       background-color: var(--light-color);
-      box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
-      margin: 0.5rem;
-      opacity: 0;
-      margin: 0.5rem;
       padding: 1rem;
-      opacity: 0;
-      &.lazy-active {
-        animation-name: lazy-fade-in;
-        animation-duration: 3s;
-        opacity: 1;
-      }
+      border: 1px solid var(--light-grey-color);
 
-      @media print {
-        opacity: 1;
-        animation-name: inherit !important;
-        animation-duration: inherit !important;
-      }
+      // ★ 웹에서도 50%가 아닌 100%를 차지하게 합니다.
+      width: 100% !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+
+      // 모바일/웹 공통 스타일
+      box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      border-radius: 10px;
+      min-height: auto; // 내용물에 맞게 늘어나도록 설정
+    }
+  }
+
+
+
+  .footer {
+    position: relative;
+    background-color: var(--light-color);
+    box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
+    margin: 0.5rem;
+    opacity: 0;
+    margin: 0.5rem;
+    padding: 1rem;
+    opacity: 0;
+
+    &.lazy-active {
+      animation-name: lazy-fade-in;
+      animation-duration: 3s;
+      opacity: 1;
+    }
+
+    @media print {
+      opacity: 1;
+      animation-name: inherit !important;
+      animation-duration: inherit !important;
     }
   }
 }
@@ -204,6 +192,7 @@ h2 {
   font-size: 1.5rem;
   color: var(--theme-color);
   font-weight: normal;
+
   &.english {
     font-family: "Allura";
   }

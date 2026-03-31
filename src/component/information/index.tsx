@@ -13,7 +13,7 @@ export const Information = () => {
     <LazyDiv className="card information">
       <h2 className="english">Information</h2>
 
-      {/* 1. 식사 안내 섹션 (최상단으로 이동) */}
+      {/* 1. 식사 안내 섹션 */}
       <div className="info-card">
         <div className="label">식사 안내</div>
         <div className="content">
@@ -99,24 +99,33 @@ export const Information = () => {
 
       <br />
 
-      {/* 3. 결혼 예배 섹션 (마지막으로 이동) */}
+      {/* 3. 결혼 예배 섹션 - Coming Soon 처리 */}
       <div className="info-card" style={{ marginTop: '0.5rem' }}>
         <div className="label">결혼 예배</div>
-        <div className="content">
+        <div className="content" style={{ position: 'relative' }}>
+          
+          {/* 오버레이: 버튼 클릭 방지 및 안내 문구 */}
+          <div style={{
+            position: 'absolute',
+            inset: '-4px', // 버튼 영역보다 살짝 넓게 덮음
+            backgroundColor: 'rgba(255, 255, 255, 0.3)', // 아주 투명하게
+            backdropFilter: 'blur(1.5px)', // 은은한 블러
+            zIndex: 5,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '8px',
+            color: '#777',
+            fontSize: '0.75rem',
+            fontWeight: 'bold',
+            letterSpacing: '0.1em'
+          }}>
+            COMING SOON
+          </div>
+
           <Button
-            style={{ width: "100%" }}
-            onClick={() => {
-              openModal({
-                className: "donation-modal program-modal",
-                closeOnClickBackground: true,
-                content: (
-                  <div style={{ padding: "0", textAlign: "center", overflow: "hidden" }}>
-                    <img src={PROGRAM_LIST} alt="식순지" style={{ width: "100%", height: "auto", display: "block" }} />
-                  </div>
-                ),
-                footer: <Button buttonStyle="style2" className="bg-light-grey-color text-dark-color" onClick={closeModal}>닫기</Button>,
-              })
-            }}
+            style={{ width: "100%", opacity: 0.5 }}
+            onClick={() => {}} // 빈 함수로 유지
           >
             식순지
           </Button>
@@ -124,19 +133,8 @@ export const Information = () => {
           <div className="break" style={{ margin: '4px 0' }} />
 
           <Button
-            style={{ width: "100%" }}
-            onClick={() => {
-              openModal({
-                className: "donation-modal program-modal",
-                closeOnClickBackground: true,
-                content: (
-                  <div style={{ padding: "0", textAlign: "center", overflow: "hidden" }}>
-                    <img src={PRAYER_CARD} alt="기도 카드" style={{ width: "100%", height: "auto", display: "block" }} />
-                  </div>
-                ),
-                footer: <Button buttonStyle="style2" className="bg-light-grey-color text-dark-color" onClick={closeModal}>닫기</Button>,
-              })
-            }}
+            style={{ width: "100%", opacity: 0.5 }}
+            onClick={() => {}} // 빈 함수로 유지
           >
             기도 카드
           </Button>

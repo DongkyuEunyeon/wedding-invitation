@@ -7,6 +7,7 @@ import { Calendar } from "./component/calendar"
 import { Gallery } from "./component/gallery"
 import { Information } from "./component/information"
 import { LazyDiv } from "./component/lazyDiv"
+import HeartGame from "./component/game"
 import { ShareButton } from "./component/shareButton"
 import { STATIC_ONLY } from "./env"
 
@@ -76,6 +77,17 @@ function App() {
         {/* 6. 여섯 번째 박스: 마음 전하기 */}
         <LazyDiv className="card-group" id="information">
           <Information />
+        </LazyDiv>
+
+        {/* 7. 일곱 번째 박스: 게임 섹션 추가 */}
+        <LazyDiv className="card-group" id="game">
+          <div className="card">
+            <h2 className="english" style={{ fontSize: '1.2rem', marginBottom: '8px' }}>Blessing Game</h2>
+            <div style={{ textAlign: 'center', fontSize: '0.8rem', color: '#888', marginBottom: '10px' }}>
+              하트를 모아 두 사람의 앞날을 축복해주세요!
+            </div>
+            <HeartGame />
+          </div>
         </LazyDiv>
 
         <ShareButton />

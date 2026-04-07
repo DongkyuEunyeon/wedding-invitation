@@ -2,7 +2,6 @@ import { BRIDE_INFO, GROOM_INFO } from "../../const"
 import { Button } from "../button"
 import { LazyDiv } from "../lazyDiv"
 import { useModal } from "../modal"
-import { AttendanceInfo } from "./attendance"
 import { PROGRAM_LIST } from "../../images"
 import { PRAYER_CARD } from "../../images"
 
@@ -103,7 +102,7 @@ export const Information = () => {
       <div className="info-card" style={{ marginTop: '0.5rem' }}>
         <div className="label">결혼 예배</div>
         <div className="content" style={{ position: 'relative' }}>
-          
+
           {/* 오버레이: 버튼 클릭 방지 및 안내 문구 */}
           <div style={{
             position: 'absolute',
@@ -125,7 +124,7 @@ export const Information = () => {
 
           <Button
             style={{ width: "100%", opacity: 0.5 }}
-            onClick={() => {}} // 빈 함수로 유지
+            onClick={() => { }} // 빈 함수로 유지
           >
             식순지
           </Button>
@@ -134,7 +133,7 @@ export const Information = () => {
 
           <Button
             style={{ width: "100%", opacity: 0.5 }}
-            onClick={() => {}} // 빈 함수로 유지
+            onClick={() => { }} // 빈 함수로 유지
           >
             기도 카드
           </Button>

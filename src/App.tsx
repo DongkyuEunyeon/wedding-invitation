@@ -84,7 +84,7 @@ function App() {
           <div className="card">
             <h2 className="english" style={{ fontSize: '1.2rem', marginBottom: '8px' }}>Blessing Game</h2>
             <div style={{ textAlign: 'center', fontSize: '0.8rem', color: '#888', marginBottom: '10px' }}>
-              하트를 모아 두 사람의 앞날을 축복해주세요!
+              하트를 모아 두 사람의 앞날을 축복해 주세요!
             </div>
             <HeartGame />
           </div>

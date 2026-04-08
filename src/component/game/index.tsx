@@ -1,64 +1,83 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Button } from "../button"; // 프로젝트 구조에 맞게 경로를 확인해주세요.
+import { Button } from "../button";
 
-/**
- * 하트 아이템 인터페이스
- */
-interface HeartItem {
+interface GameItem {
   id: number;
   left: number;
   top: number;
+  type: 'heart' | 'ring';
 }
 
-/**
- * 하트 받기 게임 컴포넌트 (서바이벌 모드)
- */
 const HeartGame: React.FC = () => {
   const [score, setScore] = useState<number>(0);
-  const [items, setItems] = useState<HeartItem[]>([]);
+  const [items, setItems] = useState<GameItem[]>([]);
   const [playerX, setPlayerX] = useState<number>(50);
   const [isGameOver, setIsGameOver] = useState<boolean>(false);
   
   const gameContainer = useRef<HTMLDivElement>(null);
-  // 점수 중복 방지 및 실시간 위치 참조를 위한 Ref
   const playerXRef = useRef<number>(50);
+  const scoreRef = useRef<number>(0);
 
-  // 1. 하트 생성 로직
+  const updateScore = (newScore: number) => {
+    setScore(newScore);
+    scoreRef.current = newScore;
+  };
+
+  // 1. 아이템 생성 (700ms 간격 복구)
   useEffect(() => {
     if (isGameOver) return;
+    
     const interval = setInterval(() => {
-      const newItem: HeartItem = { 
-        id: Date.now(), 
-        left: Math.random() * 90, 
-        top: -20 
-      };
-      setItems((prev) => [...prev, newItem]);
-    }, 700);
-    return () => clearInterval(interval);
-  }, [isGameOver]);
+      if (scoreRef.current >= 1010) return;
 
-  // 2. 하트 이동 및 충돌 감지 (중복 점수 방지 로직 포함)
+      const isRingTime = scoreRef.current >= 1000;
+      // 이미 반지가 화면에 있으면 생성 안함
+      if (isRingTime && items.some(i => i.type === 'ring')) return;
+
+      const newItem: GameItem = { 
+        id: Date.now(), 
+        left: Math.random() * 80 + 10, // 좌우 끝에 너무 붙지 않게
+        top: -10,
+        type: isRingTime ? 'ring' : 'heart'
+      };
+
+      setItems((prev) => {
+        if (isRingTime) return [...prev, newItem]; // 1000점이면 반지 추가
+        if (scoreRef.current < 1000) return [...prev, newItem]; // 1000점 미만일 때만 하트 추가
+        return prev;
+      });
+    }, 700); // 생성 속도 복구
+
+    return () => clearInterval(interval);
+  }, [isGameOver, items.length]); // items.length를 넣어 상태 변화 감지
+
+  // 2. 이동 및 충돌 감지 (5px 이동 복구)
   useEffect(() => {
     if (isGameOver) return;
 
     const moveInterval = setInterval(() => {
       setItems((prev) => {
-        const updatedItems: HeartItem[] = [];
+        const updatedItems: GameItem[] = [];
         let missed = false;
 
         for (const item of prev) {
-          const nextTop = item.top + 5;
+          const nextTop = item.top + 5; // 이동 속도 5로 복구
           
-          // 충돌 판정 범위 (playerXRef를 사용하여 정확한 위치 참조)
-          const isHit = nextTop > 75 && nextTop < 85 && Math.abs(item.left - playerXRef.current) < 12;
+          // 충돌 판정 (좌우 범위를 15로 늘려 더 잘 잡히게 수정)
+          const isHit = nextTop > 75 && nextTop < 90 && Math.abs(item.left - playerXRef.current) < 15;
 
           if (isHit) {
-            // 하트를 먹으면 점수 10점 추가 후 배열에서 즉시 제거(updatedItems에 넣지 않음)
-            setScore(s => s + 5);
+            if (item.type === 'ring') {
+              updateScore(1010);
+              setIsGameOver(true);
+            } else {
+              updateScore(scoreRef.current + 10);
+            }
             continue; 
           }
 
           if (nextTop >= 100) { 
+            // 반지를 놓치거나 하트를 놓치면 게임 오버
             missed = true; 
             break; 
           }
@@ -76,22 +95,12 @@ const HeartGame: React.FC = () => {
     return () => clearInterval(moveInterval);
   }, [isGameOver]);
 
-  // 3. 컨트롤러 이동 처리
   const handleMove = (e: React.MouseEvent | React.TouchEvent) => {
     if (!gameContainer.current || isGameOver) return;
-    
     const rect = gameContainer.current.getBoundingClientRect();
-    let clientX: number;
-    
-    if ('touches' in e) {
-      clientX = e.touches[0].clientX;
-    } else {
-      clientX = (e as React.MouseEvent).clientX;
-    }
-    
+    let clientX = 'touches' in e ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
     const x = ((clientX - rect.left) / rect.width) * 100;
-    const newX = Math.min(Math.max(x, 0), 90);
-    
+    const newX = Math.min(Math.max(x, 0), 100);
     setPlayerX(newX);
     playerXRef.current = newX;
   };
@@ -102,18 +111,11 @@ const HeartGame: React.FC = () => {
       onMouseMove={handleMove}
       onTouchMove={handleMove}
       style={{ 
-        width: '100%', 
-        height: '240px', 
-        background: '#FFF9FA', 
-        position: 'relative', 
-        overflow: 'hidden', 
-        borderRadius: '12px',
-        border: '1px solid #FFE0E6', 
-        touchAction: 'none', 
-        marginTop: '10px'
+        width: '100%', height: '240px', background: '#FFF9FA', position: 'relative', 
+        overflow: 'hidden', borderRadius: '12px', border: '1px solid #FFE0E6', 
+        touchAction: 'none', marginTop: '10px'
       }}
     >
-      {/* 점수 UI */}
       <div style={{ 
         position: 'absolute', top: '12px', left: '12px', 
         fontSize: '0.85rem', color: '#FF85A2', fontWeight: 'bold', zIndex: 10 
@@ -121,29 +123,28 @@ const HeartGame: React.FC = () => {
         축복 포인트: {score}
       </div>
 
-      {!isGameOver && (
-        <div style={{ position: 'absolute', top: '12px', right: '12px', fontSize: '0.65rem', color: '#FFB3C6' }}>
-          하트를 모아주세요!
-        </div>
-      )}
-      
-      {/* 하트 렌더링 */}
+      {/* 아이템 렌더링 */}
       {!isGameOver && items.map(item => (
         <div key={item.id} style={{ 
           position: 'absolute', left: `${item.left}%`, top: `${item.top}%`, 
-          fontSize: '22px' 
-        }}>❤️</div>
+          fontSize: item.type === 'ring' ? '28px' : '22px',
+          transform: 'translateX(-50%)'
+        }}>
+          {item.type === 'ring' ? '💍' : '❤️'}
+        </div>
       ))}
 
-      {/* 캐릭터 렌더링 */}
+      {/* 캐릭터 */}
       {!isGameOver && (
         <div style={{ 
           position: 'absolute', left: `${playerX}%`, bottom: '15px', 
           fontSize: '32px', transition: 'left 0.1s ease-out', transform: 'translateX(-50%)' 
-        }}>👩‍❤️‍👨</div>
+        }}>
+          👩‍❤️‍👨
+        </div>
       )}
 
-      {/* 게임 종료 화면 */}
+      {/* 결과 화면 */}
       {isGameOver && (
         <div style={{ 
           position: 'absolute', inset: 0, background: 'rgba(255, 255, 255, 0.9)', 
@@ -151,14 +152,17 @@ const HeartGame: React.FC = () => {
           justifyContent: 'center', textAlign: 'center', zIndex: 20 
         }}>
           <div style={{ fontSize: '0.9rem', color: '#444', lineHeight: '1.6' }}>
-            💕 축복해주셔서 감사합니다!<br />
-            <strong style={{ color: '#FF6B8B' }}>10월 10일</strong>에 뵙겠습니다!
+            {score >= 1010 ? (
+              <>💕 축복해 주셔서 감사합니다!<br /><strong style={{ color: '#FF6B8B' }}>10월 10일</strong>에 뵙겠습니다!</>
+            ) : (
+              <>하트를 놓쳤어요! 다시 한번 축복해 주세요🎉</>
+            )}
           </div>
           <Button 
             buttonStyle="style2" 
             style={{ fontSize: '0.75rem', marginTop: '10px' }} 
             onClick={() => { 
-              setScore(0); 
+              updateScore(0); 
               setItems([]); 
               setIsGameOver(false); 
             }}

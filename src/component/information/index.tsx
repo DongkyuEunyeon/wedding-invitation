@@ -35,10 +35,14 @@ export const Information = () => {
                 <div>{item.account}</div>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '12px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '12px', alignItems: 'center' }}>
+                {/* 1. 복사하기 버튼 고정 */}
                 <Button
                   className="copy-button"
-                  style={{ width: "100%" }}
+                  style={{
+                    width: "100px", // 100% 대신 고정값
+                    height: "40px"
+                  }}
                   onClick={() => {
                     navigator.clipboard.writeText(item.account || "");
                     alert("복사되었습니다.");
@@ -47,21 +51,21 @@ export const Information = () => {
                   복사하기
                 </Button>
 
-                {/* 이제 item.kakaopay에 접근해도 에러가 나지 않습니다. */}
+                {/* 2. 카카오페이 버튼 고정 */}
                 {item.kakaopay && (
                   <Button
                     className="kakaopay-button"
                     style={{
-                      width: "100%",
-                      backgroundColor: '#FEE500',
+                      width: "100px", // 복사하기와 똑같은 크기로 고정
+                      height: "40px",
+                      backgroundColor: '#f4de39',
                       border: 'none',
                       padding: '0',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       borderRadius: '4px',
-                      overflow: 'hidden',
-                      height: '40px' 
+                      overflow: 'hidden'
                     }}
                     onClick={() => {
                       if (item.kakaopay) window.location.href = item.kakaopay;
@@ -71,9 +75,8 @@ export const Information = () => {
                       src={KakaoPayLogo}
                       alt="카카오페이 송금"
                       style={{
-                        width: '100%',
                         height: '100%',
-                        objectFit: 'contain',
+                        width: 'auto',
                         display: 'block'
                       }}
                     />

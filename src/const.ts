@@ -41,6 +41,7 @@ export const BRIDE_FIRSTNAME = "은연"
 export const BRIDE_TITLE = "소중한 딸"
 export const BRIDE_FATHER = "이용환"
 export const BRIDE_MOTHER = "조혜경"
+
 export const BRIDE_INFO = [
   {
     relation: "신부",
@@ -73,6 +74,7 @@ export const GROOM_INFO = [
     name: GROOM_FULLNAME,
     phone: "010-4993-1024",
     account: "토스뱅크 100021226681",
+    kakaopay: "https://link.kakaopay.com/__/MvdCQiF",
   },
   {
     relation: "신랑 아버지",

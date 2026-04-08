@@ -140,7 +140,7 @@ const HeartGame: React.FC = () => {
           position: 'absolute', left: `${playerX}%`, bottom: '15px', 
           fontSize: '32px', transition: 'left 0.1s ease-out', transform: 'translateX(-50%)' 
         }}>
-          👩‍❤️‍👨
+          👩🏻‍❤️‍👨🏻
         </div>
       )}
 

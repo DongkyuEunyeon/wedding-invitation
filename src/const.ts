@@ -48,6 +48,7 @@ export const BRIDE_INFO = [
     name: BRIDE_FULLNAME,
     phone: "010-9340-8122",
     account: "토스뱅크 100125228278",
+    kakaopay: "https://link.kakaopay.com/__/LPGzgr4",
   },
   {
     relation: "신부 아버지",

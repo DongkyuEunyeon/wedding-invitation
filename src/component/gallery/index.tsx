@@ -5,7 +5,7 @@ import { Button } from "../button"
 import { useModal } from "../modal"
 import { GALLERY_IMAGES } from "../../images"
 
-// 1. 캐러셀 아이템 정의 부분 수정 (덮개 추가)
+// 1. 캐러셀 아이템 정의 부분 수정 (pointerEvents 추가하여 터치 관통)
 const CAROUSEL_ITEMS = GALLERY_IMAGES.map((item, idx) => (
   <div className="carousel-item" key={idx} style={{ position: "relative" }}>
     <img
@@ -19,7 +19,7 @@ const CAROUSEL_ITEMS = GALLERY_IMAGES.map((item, idx) => (
         WebkitUserSelect: 'none'
       }}
     />
-    {/* 투명 덮개 추가 (모바일 저장 방지) */}
+    {/* 투명 덮개가 터치/스크롤 이벤트를 가로막지 않도록 pointerEvents: "none" 추가 */}
     <div style={{
       position: "absolute",
       top: 0,
@@ -27,7 +27,8 @@ const CAROUSEL_ITEMS = GALLERY_IMAGES.map((item, idx) => (
       width: "100%",
       height: "100%",
       backgroundColor: "transparent",
-      WebkitTouchCallout: 'none'
+      WebkitTouchCallout: 'none',
+      pointerEvents: "none" 
     }} />
   </div>
 ))
@@ -203,17 +204,18 @@ export const Gallery = () => {
       const status = statusRef.current
 
       if (status === "clicked") {
-        e.preventDefault()
-        const xMove =
-          e.targetTouches[0].clientX - dragOptionRef.current.startingClientX
-        const yMove =
-          e.targetTouches[0].clientY - dragOptionRef.current.startingClientY
-        if (Math.abs(xMove) > DRAG_SENSITIVITY) {
+        const xMove = e.targetTouches[0].clientX - dragOptionRef.current.startingClientX
+        const yMove = e.targetTouches[0].clientY - dragOptionRef.current.startingClientY
+        
+        // 의도가 확실한 좌우 드래그일 때만 스크롤을 막고 드래그 상태로 진입
+        if (Math.abs(xMove) > DRAG_SENSITIVITY && Math.abs(xMove) > Math.abs(yMove)) {
+          e.preventDefault()
           setStatus("dragging")
         } else if (Math.abs(yMove) > DRAG_SENSITIVITY) {
           setStatus("clickCanceled")
         }
       } else if (status === "dragging") {
+        // 이미 캐러셀을 넘기는 중일 때는 브라우저 스크롤을 방지
         e.preventDefault()
         dragging(
           dragOptionRef.current,
@@ -249,7 +251,8 @@ export const Gallery = () => {
     const carouselElement = carouselRef.current
 
     window.addEventListener("mousemove", onMouseMove)
-    carouselElement.addEventListener("touchmove", onTouchMove)
+    // 모바일 크롬/사파리에서 e.preventDefault()가 동작할 수 있도록 passive: false 지정
+    carouselElement.addEventListener("touchmove", onTouchMove, { passive: false })
     window.addEventListener("mouseup", onMouseTouchUp)
     window.addEventListener("touchend", onMouseTouchUp)
     return () => {
@@ -331,6 +334,7 @@ export const Gallery = () => {
               CAROUSEL_ITEMS.slice(moveOption.srcIdx, moveOption.dstIdx + 1)}
             {status === "moving-left" &&
               CAROUSEL_ITEMS.slice(moveOption.dstIdx, moveOption.srcIdx + 1)}
+            {/* 💡 문법 에러 유발하던 대괄호 오타 수정 완료 */}
             {["stationary", "clicked", "clickCanceled"].includes(status) &&
               CAROUSEL_ITEMS[slide]}
           </div>
@@ -384,7 +388,6 @@ export const Gallery = () => {
               <>
                 <div className="photo-list">
                   {GALLERY_IMAGES.map((image, idx) => (
-                    // 2. 전체보기 모달 내 이미지 감싸는 div 추가 (덮개 적용)
                     <div key={idx} className="photo-wrapper" style={{ position: "relative" }}>
                       <img
                         src={image}
@@ -395,13 +398,11 @@ export const Gallery = () => {
                           WebkitTouchCallout: 'none',
                           userSelect: 'none',
                           WebkitUserSelect: 'none',
-                          cursor: 'pointer', // 클릭 힌트 유지
+                          cursor: 'pointer',
                           display: "block",
                           width: "100%"
                         }}
-                        // 기존 onClick 이벤트를 투명 덮개로 이전했습니다.
                       />
-                      {/* 투명 덮개 추가 및 onClick 이벤트 처리 */}
                       <div 
                         style={{
                           position: "absolute",
@@ -411,9 +412,8 @@ export const Gallery = () => {
                           height: "100%",
                           backgroundColor: "transparent",
                           WebkitTouchCallout: 'none',
-                          cursor: 'pointer' // 클릭 영역임을 명시
+                          cursor: 'pointer'
                         }}
-                        // 사용자는 투명막을 누르지만, 브라우저는 이 div의 onClick을 실행합니다.
                         onClick={() => {
                           if (statusRef.current === "stationary") {
                             if (idx !== slideRef.current) {

@@ -1,5 +1,3 @@
-# 모바일 청첩장 템플릿 | Wedding Invitation Template
-
-## 원본 버전 | Original Version
+# 모바일 청첩장 | Wedding Invitation
 
 정동규 ❤️ 이은연 청첩장입니다.

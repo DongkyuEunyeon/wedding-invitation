@@ -56,20 +56,25 @@ export const Gallery = () => {
   const { openModal, closeModal } = useModal()
   const carouselRef = useRef<HTMLDivElement>({} as HTMLDivElement)
 
-  useEffect(() => {
-    // preload images
-    GALLERY_IMAGES.forEach((image) => {
-      const img = new Image()
-      img.src = image
-    })
-  }, [])
-
   const [slide, _setSlide] = useState(0)
   const slideRef = useRef(0)
   const setSlide = (slide: number) => {
     _setSlide(slide)
     slideRef.current = slide
   }
+
+  useEffect(() => {
+    const imageCount = GALLERY_IMAGES.length
+    const adjacentSlides = [
+      (slide + imageCount - 1) % imageCount,
+      (slide + 1) % imageCount,
+    ]
+
+    adjacentSlides.forEach((idx) => {
+      const img = new Image()
+      img.src = GALLERY_IMAGES[idx]
+    })
+  }, [slide])
 
   const [status, _setStatus] = useState<Status>("stationary")
   const statusRef = useRef<Status>("stationary")
@@ -263,14 +268,6 @@ export const Gallery = () => {
     }
   }, [onMouseMove, onTouchMove, onMouseTouchUp])
 
-  const onIndicatorClick = useCallback(
-    (status: Status, srcIdx: number, dstIdx: number) => {
-      if (status !== "stationary" || srcIdx === dstIdx) return
-      move(srcIdx, dstIdx)
-    },
-    [move],
-  )
-
   const transformStyle = useMemo(() => {
     switch (status) {
       case "dragging":
@@ -364,15 +361,9 @@ export const Gallery = () => {
           </div>
         </div>
         <div className="carousel-indicator">
-          {GALLERY_IMAGES.map((_, idx) => (
-            <button
-              key={idx}
-              className={`indicator${idx === slide ? " active" : ""}`}
-              onClick={() =>
-                onIndicatorClick(statusRef.current, slideRef.current, idx)
-              }
-            />
-          ))}
+          <span aria-live="polite">
+            {slide + 1} / {GALLERY_IMAGES.length}
+          </span>
         </div>
       </div>
 

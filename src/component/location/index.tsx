@@ -5,6 +5,11 @@ import { LazyDiv } from "../lazyDiv"
 import { LOCATION, LOCATION_ADDRESS } from "../../const"
 
 export const Location = () => {
+  const copyAddress = (address: string) => {
+    navigator.clipboard.writeText(address)
+    alert("주소가 복사되었습니다.")
+  }
+
   return (
     <>
       <LazyDiv className="card location">
@@ -46,11 +51,25 @@ export const Location = () => {
           <div className="content" style={{ lineHeight: '1.6' }}>
             <b>삼일교회 B관 지하주차장</b> 혹은
             <br />
-            (청파로 304)
+            <button
+              type="button"
+              className="address-copy-button"
+              onClick={() => copyAddress("청파로 304")}
+              aria-label="청파로 304 주소 복사"
+            >
+              (청파로 304) · 무료 주차
+            </button>
             <br />
             <b>숙명여자대학교 제2창학캠퍼스주차장</b> 이용
             <br />
-            (청파로 47길 99)
+            <button
+              type="button"
+              className="address-copy-button"
+              onClick={() => copyAddress("청파로 47길 99")}
+              aria-label="청파로 47길 99 주소 복사"
+            >
+              (청파로 47길 99) · 2시간 주차 지원
+            </button>
           </div>
           <div />
           <div className="content" style={{ lineHeight: '1.6' }}>

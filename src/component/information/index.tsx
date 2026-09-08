@@ -9,14 +9,13 @@ interface AccountItem {
   name: string;
   phone: string;
   account: string;
-  kakaopay?: string; // 선택적 속성으로 정의
+  kakaopay?: string;
 }
 
 export const Information = () => {
   const { openModal, closeModal } = useModal()
 
   const openDonationModal = (type: 'groom' | 'bride') => {
-    // 2. 가져온 데이터를 위에서 만든 AccountItem 배열 타입으로 캐스팅합니다.
     const info = (type === 'groom' ? GROOM_INFO : BRIDE_INFO) as AccountItem[];
     const title = type === 'groom' ? "신랑측 계좌번호" : "신부측 계좌번호";
 
@@ -35,12 +34,20 @@ export const Information = () => {
                 <div>{item.account}</div>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '12px', alignItems: 'center' }}>
-                {/* 1. 복사하기 버튼 고정 */}
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '6px',
+                  marginTop: '12px',
+                  alignItems: 'center'
+                }}
+              >
+                {/* 복사하기 버튼 */}
                 <Button
                   className="copy-button"
                   style={{
-                    width: "100px", // 100% 대신 고정값
+                    width: "100px",
                     height: "40px"
                   }}
                   onClick={() => {
@@ -51,12 +58,12 @@ export const Information = () => {
                   복사하기
                 </Button>
 
-                {/* 2. 카카오페이 버튼 고정 */}
+                {/* 카카오페이 버튼 */}
                 {item.kakaopay && (
                   <Button
                     className="kakaopay-button"
                     style={{
-                      width: "100px", // 복사하기와 똑같은 크기로 고정
+                      width: "100px",
                       height: "40px",
                       backgroundColor: '#f4de39',
                       border: 'none',
@@ -87,7 +94,11 @@ export const Information = () => {
           ))}
         </>
       ),
-      footer: <Button buttonStyle="style2" onClick={closeModal}>닫기</Button>,
+      footer: (
+        <Button buttonStyle="style2" onClick={closeModal}>
+          닫기
+        </Button>
+      ),
     })
   }
 
@@ -111,25 +122,37 @@ export const Information = () => {
       <div className="info-card" style={{ marginTop: '0.5rem' }}>
         <div className="label">마음 전하기</div>
         <div className="content">
-          부득이하게 참석이 어려워<br />마음을 전하고자 하시는 분들을 위해<br />계좌번호를 안내드립니다.
+          부득이하게 참석이 어려워<br />
+          마음을 전하고자 하시는 분들을 위해<br />
+          계좌번호를 안내드립니다.
         </div>
+
         <div className="break" style={{ margin: '8px 0' }} />
-        <Button style={{ width: "100%" }} onClick={() => openDonationModal('groom')}>
+
+        <Button
+          style={{ width: "100%" }}
+          onClick={() => openDonationModal('groom')}
+        >
           신랑측 계좌번호 보기
         </Button>
+
         <div className="break" style={{ margin: '4px 0' }} />
-        <Button style={{ width: "100%" }} onClick={() => openDonationModal('bride')}>
+
+        <Button
+          style={{ width: "100%" }}
+          onClick={() => openDonationModal('bride')}
+        >
           신부측 계좌번호 보기
         </Button>
       </div>
 
+      {/*
       <br />
 
-      {/* 3. 결혼 예배 (Coming Soon 최적화) */}
+      // 3. 결혼 예배 (Coming Soon 최적화)
       <div className="info-card" style={{ marginTop: '0.5rem' }}>
         <div className="label">결혼 예배</div>
         <div className="content" style={{ position: 'relative' }}>
-          {/* pointerEvents: 'none'으로 설정하여 모달 클릭을 방해하지 않음 */}
           <div style={{
             position: 'absolute',
             inset: '-4px',
@@ -149,11 +172,18 @@ export const Information = () => {
             COMING SOON
           </div>
 
-          <Button style={{ width: "100%", opacity: 0.5 }} disabled>식순지</Button>
+          <Button style={{ width: "100%", opacity: 0.5 }} disabled>
+            식순지
+          </Button>
+
           <div className="break" style={{ margin: '4px 0' }} />
-          <Button style={{ width: "100%", opacity: 0.5 }} disabled>기도 카드</Button>
+
+          <Button style={{ width: "100%", opacity: 0.5 }} disabled>
+            기도 카드
+          </Button>
         </div>
       </div>
+      */}
     </LazyDiv>
   )
 }

@@ -146,7 +146,6 @@ export const Information = () => {
         </Button>
       </div>
 
-      {
       <br />
 
       {/* 3. 결혼 예배 */}
@@ -168,12 +167,14 @@ export const Information = () => {
 
           <div className="break" style={{ margin: '4px 0' }} />
 
-          <Button style={{ width: "100%" }} disabled>
+          <Button
+            style={{ width: "100%" }}
+            disabled
+          >
             기도 카드
           </Button>
         </div>
       </div>
-      }
     </LazyDiv>
   )
 }

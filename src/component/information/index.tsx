@@ -146,44 +146,34 @@ export const Information = () => {
         </Button>
       </div>
 
-      {/*
+      {
       <br />
 
-      // 3. 결혼 예배 (Coming Soon 최적화)
+      {/* 3. 결혼 예배 */}
       <div className="info-card" style={{ marginTop: '0.5rem' }}>
         <div className="label">결혼 예배</div>
-        <div className="content" style={{ position: 'relative' }}>
-          <div style={{
-            position: 'absolute',
-            inset: '-4px',
-            backgroundColor: 'rgba(255, 255, 255, 0.4)',
-            backdropFilter: 'blur(1.5px)',
-            zIndex: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: '8px',
-            color: '#777',
-            fontSize: '0.75rem',
-            fontWeight: 'bold',
-            letterSpacing: '0.1em',
-            pointerEvents: 'none'
-          }}>
-            COMING SOON
-          </div>
 
-          <Button style={{ width: "100%", opacity: 0.5 }} disabled>
+        <div className="content">
+          <Button
+            style={{ width: "100%" }}
+            onClick={() => {
+              window.open(
+                `${import.meta.env.BASE_URL}wedding-order.pdf`,
+                "_blank"
+              );
+            }}
+          >
             식순지
           </Button>
 
           <div className="break" style={{ margin: '4px 0' }} />
 
-          <Button style={{ width: "100%", opacity: 0.5 }} disabled>
+          <Button style={{ width: "100%" }} disabled>
             기도 카드
           </Button>
         </div>
       </div>
-      */}
+      }
     </LazyDiv>
   )
 }

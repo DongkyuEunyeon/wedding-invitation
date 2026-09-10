@@ -147,8 +147,8 @@ export const Information = () => {
       </div>
 
       <br />
-
-      {/* 3. 결혼 예배 */}
+      {/*
+      {/* 3. 결혼 예배 }
       <div className="info-card" style={{ marginTop: '0.5rem' }}>
         <div className="label">결혼 예배</div>
 
@@ -175,6 +175,7 @@ export const Information = () => {
           </Button>
         </div>
       </div>
+      */}
     </LazyDiv>
   )
 }

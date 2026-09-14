@@ -90,6 +90,20 @@ function App() {
           </div>
         </LazyDiv>
 
+        <div
+          style={{
+            padding: '0 2rem',
+            margin: '1.5rem 0',
+            textAlign: 'center',
+            fontSize: '0.78rem',
+            lineHeight: 1.7,
+          }}
+        >
+          예배 예식으로 검소하게 진행될 예정으로
+          <br />
+          화환은 축하해 주시는 마음만 감사히 받겠습니다.
+        </div>
+
         <ShareButton />
         <div style={{ height: '30px' }} />
       </div>

@@ -113,6 +113,10 @@ export const Information = () => {
           식사시간: 11시 30분 ~ 13시 30분
           <br />
           장소: 지하 1층 연회장
+          <br />
+          <span style={{ fontSize: '0.85em' }}>
+            미취학 아동: 무료, 초등학생: 어린이 식권
+          </span>
         </div>
       </div>
 

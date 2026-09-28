@@ -175,7 +175,7 @@ export const Information = () => {
             style={{ width: "100%" }}
             onClick={() => {
               window.open(
-                `${import.meta.env.BASE_URL}/wedding-order.JPG`,
+                `${import.meta.env.BASE_URL}/wedding-order.pdf`,
                 "_blank"
               )
             }}

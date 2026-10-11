@@ -73,7 +73,7 @@ function App() {
 
             {/* 감사 인사 이미지 */}
             <img
-              src={`${import.meta.env.BASE_URL}thanks.jpg`}
+              src={`${import.meta.env.BASE_URL}thanks.JPG`}
               alt="정동규, 이은연의 감사 인사"
               style={{
                 display: "block",

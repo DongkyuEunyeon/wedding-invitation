@@ -1,5 +1,4 @@
-
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { Cover } from "./component/cover"
 import { Location } from "./component/location"
 import "./App.scss"
@@ -10,21 +9,20 @@ import { Information } from "./component/information"
 import { LazyDiv } from "./component/lazyDiv"
 import HeartGame from "./component/game"
 import { ShareButton } from "./component/shareButton"
-import { STATIC_ONLY } from "./env"
-
+// GitHub Pages에 배포된 감사 인사 이미지 주소
+const THANKS_IMAGE =
+  "https://dongkyueunyeon.github.io/wedding-invitation/thanks.JPG"
 function App() {
   const [showThanks, setShowThanks] = useState(true)
-
+  const [thanksImageError, setThanksImageError] = useState(false)
   const scrollToId = (id: string) => {
     const element = document.getElementById(id)
     if (element) {
       element.scrollIntoView({ behavior: "smooth" })
     }
   }
-
   return (
     <div className="background">
-
       {/* 감사 인사 팝업 */}
       {showThanks && (
         <div
@@ -38,6 +36,7 @@ function App() {
             alignItems: "center",
             justifyContent: "center",
             padding: "20px",
+            boxSizing: "border-box",
           }}
         >
           <div
@@ -46,18 +45,21 @@ function App() {
               position: "relative",
               width: "100%",
               maxWidth: "610px",
+              maxHeight: "85vh",
             }}
           >
             {/* 닫기 버튼 */}
             <button
+              type="button"
               onClick={() => setShowThanks(false)}
               aria-label="감사 인사 팝업 닫기"
               style={{
                 position: "absolute",
                 top: "-14px",
                 right: "-10px",
-                width: "36px",
-                height: "36px",
+                width: "40px",
+                height: "40px",
+                border: "none",
                 borderRadius: "50%",
                 backgroundColor: "#fff",
                 color: "#333",
@@ -66,29 +68,50 @@ function App() {
                 cursor: "pointer",
                 boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
                 zIndex: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               ×
             </button>
-
             {/* 감사 인사 이미지 */}
-            <img
-              src={`${import.meta.env.BASE_URL}thanks.JPG`}
-              alt="정동규, 이은연의 감사 인사"
-              style={{
-                display: "block",
-                width: "100%",
-                height: "auto",
-                maxHeight: "85vh",
-                objectFit: "contain",
-                borderRadius: "2px",
-                boxShadow: "0 8px 30px rgba(0,0,0,0.2)",
-              }}
-            />
+            {!thanksImageError ? (
+              <img
+                src={THANKS_IMAGE}
+                alt="정동규, 이은연의 감사 인사"
+                onError={() => setThanksImageError(true)}
+                style={{
+                  display: "block",
+                  width: "100%",
+                  maxHeight: "85vh",
+                  height: "auto",
+                  objectFit: "contain",
+                  borderRadius: "2px",
+                  boxShadow: "0 8px 30px rgba(0,0,0,0.2)",
+                }}
+              />
+            ) : (
+              <div
+                style={{
+                  padding: "30px 20px",
+                  backgroundColor: "#fff",
+                  color: "#333",
+                  textAlign: "center",
+                  borderRadius: "4px",
+                  lineHeight: 1.8,
+                }}
+              >
+                감사 인사 이미지를 불러오지 못했습니다.
+                <br />
+                <span style={{ fontSize: "13px", color: "#777" }}>
+                  public/thanks.JPG 파일이 있는지 확인해 주세요.
+                </span>
+              </div>
+            )}
           </div>
         </div>
       )}
-
       {/* 상단 메뉴 */}
       <nav
         className="top-nav"
@@ -124,7 +147,6 @@ function App() {
         >
           오시는길
         </span>
-
         <span
           onClick={() => scrollToId("gallery")}
           style={{
@@ -135,7 +157,6 @@ function App() {
         >
           동규♥은연
         </span>
-
         <span
           onClick={() => scrollToId("information")}
           style={{
@@ -147,39 +168,31 @@ function App() {
           마음전하기
         </span>
       </nav>
-
       <div className="card-view" style={{ paddingTop: "50px" }}>
-
         {/* 1. 커버 */}
         <LazyDiv className="card-group" id="cover">
           <Cover />
         </LazyDiv>
-
         {/* 2. 초대문 */}
         <LazyDiv className="card-group" id="invitation">
           <Invitation />
         </LazyDiv>
-
         {/* 3. 달력 */}
         <LazyDiv className="card-group" id="calendar">
           <Calendar />
         </LazyDiv>
-
         {/* 4. 오시는 길 */}
         <LazyDiv className="card-group" id="location">
           <Location />
         </LazyDiv>
-
         {/* 5. 갤러리 */}
         <LazyDiv className="card-group" id="gallery">
           <Gallery />
         </LazyDiv>
-
         {/* 6. 마음 전하기 */}
         <LazyDiv className="card-group" id="information">
           <Information />
         </LazyDiv>
-
         {/* 7. 축복 게임 */}
         <LazyDiv className="card-group" id="game">
           <div className="card">
@@ -192,7 +205,6 @@ function App() {
             >
               Blessing Game
             </h2>
-
             <div
               style={{
                 textAlign: "center",
@@ -203,11 +215,9 @@ function App() {
             >
               하트를 모아 두 사람의 앞날을 축복해 주세요!
             </div>
-
             <HeartGame />
           </div>
         </LazyDiv>
-
         {/* 화환 안내 */}
         <div
           style={{
@@ -222,14 +232,11 @@ function App() {
           <br />
           화환은 축하해 주시는 마음만 감사히 받겠습니다.
         </div>
-
         {/* 공유 버튼 */}
         <ShareButton />
-
         <div style={{ height: "30px" }} />
       </div>
     </div>
   )
 }
-
 export default App
